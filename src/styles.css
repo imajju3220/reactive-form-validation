@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+.upcoming-event{
+ margin: 0;
+ padding: 0;
+ display: flex;
+ justify-content: space-around;
+}
+.upcoming-event li{
+ list-style: none;
+ display: inline-block;
+ text-align: center;
+ margin: 0;
+ padding: 8px 28px;
+ border-right: 1px solid #d5d5d5;
+}
+
+.upcoming-event li:last-child {
+    border: 0;
+}
