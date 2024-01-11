@@ -28,13 +28,24 @@
   </ul>
 </section>
 
-<section class="my-5 bg-light">
+<section class="my-5 bg-light" *ngFor="let event of events">
   <div class="container-fluid">
     <div class="w-100 p-3 d-flex align-items-center justify-content-between">
-      <div>image</div>
-      <div>Title of event</div>
-      <div>venue</div>
-      <div>
+      <div class="col-3">
+        <img [src]="event.imageUrl" alt="" style="width: 150px" />
+      </div>
+      <div class="col-4">
+        <p><strong>Organizer:</strong> {{ event.organizerName }}</p>
+        <p><strong>Event Name:</strong> {{ event.eventName }}</p>
+      </div>
+      <div class="col-2">
+        <p>{{ event.startDate | date : "dd-mm-yy" }}</p>
+        <p>{{ event.location }}</p>
+      </div>
+      <div class="col-2">
+        <p>Rs. {{ event.price }}</p>
+      </div>
+      <div class="col-1">
         <button type="button" class="btn btn-primary me-2">Book Now</button>
       </div>
     </div>

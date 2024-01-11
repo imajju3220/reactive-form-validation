@@ -1,6 +1,12 @@
-<nav class="navbar bg-body-tertiary">
+<nav class="navbar bg-body-tertiary mb-5">
   <div class="container-fluid justify-content-between">
     <a class="navbar-brand" href="">Logo</a>
+    <div *ngIf="loggedUserData?.role == 'Event Planner'">
+      <a class="text-black" routerLink="new-event">Create Event</a>
+    </div>
+    <div>
+      <a class="text-black" routerLink="event-list">Event List</a>
+    </div>
     <div *ngIf="!isUserLoggedin">
       <button
         class="btn btn-outline-primary me-2"
@@ -9,14 +15,22 @@
       >
         Login
       </button>
-      <button class="btn btn-outline-success me-2" type="button">
+      <button
+        class="btn btn-outline-success me-2"
+        type="button"
+        (click)="isLoginView = true"
+      >
         Register
       </button>
     </div>
     <div *ngIf="isUserLoggedin">
-      {{ loggedUserData.ContactNo }}
-      <button class="btn btn-outline-success me-2" type="button">
-        Register
+      Hi, {{ loggedUserData.contactNo }}
+      <button
+        class="btn btn-outline-success me-2"
+        type="button"
+        (click)="onLogOff()"
+      >
+        LogOff
       </button>
     </div>
   </div>
@@ -127,5 +141,3 @@
 </div>
 
 <router-outlet></router-outlet>
-
-<app-new-event></app-new-event>

@@ -64,6 +64,12 @@ export class AppComponent {
       });
   }
 
+  onLogOff() {
+    localStorage.removeItem('eventUser');
+    this.isUserLoggedin = false;
+    this.loggedUserData = undefined;
+  }
+
   onLogin() {
     this.http
       .post(
@@ -74,6 +80,8 @@ export class AppComponent {
         if (res.result) {
           alert('login success');
           localStorage.setItem('eventUser', JSON.stringify(res.data));
+          this.isUserLoggedin = true;
+          this.loggedUserData = res.data;
           this.closeModal();
         } else {
           alert('res.message');
