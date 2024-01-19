@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { Block } from '@angular/compiler';
 import { Component } from '@angular/core';
 
 @Component({
@@ -38,6 +39,15 @@ export class AppComponent {
     const modal = document.getElementById('myModal');
     if (modal != null) {
       modal.style.display = 'block';
+      this.isLoginView = true;
+    }
+  }
+
+  openRegister(){
+    const modal = document.getElementById('myModal');
+    if(modal != null){
+      modal.style.display = 'block';
+      this.isLoginView = false;
     }
   }
 
@@ -50,11 +60,7 @@ export class AppComponent {
 
   onRegister() {
     this.http
-      .post(
-        'https://freeapi.miniprojectideas.com/api/EventBooking/CreateUser',
-        this.registerObj
-      )
-      .subscribe((res: any) => {
+      .post('https://freeapi.miniprojectideas.com/api/EventBooking/CreateUser',this.registerObj).subscribe((res: any) => {
         if (res.result) {
           alert('registration success');
           this.closeModal();

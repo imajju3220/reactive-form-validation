@@ -8,28 +8,16 @@
       <a class="text-black" routerLink="event-list">Event List</a>
     </div>
     <div *ngIf="!isUserLoggedin">
-      <button
-        class="btn btn-outline-primary me-2"
-        type="button"
-        (click)="openLogin()"
-      >
+      <button class="btn btn-outline-primary me-2" type="button" (click)="openLogin()">
         Login
       </button>
-      <button
-        class="btn btn-outline-success me-2"
-        type="button"
-        (click)="isLoginView = true"
-      >
+      <button class="btn btn-outline-success me-2" type="button" (click)="openRegister()">
         Register
       </button>
     </div>
     <div *ngIf="isUserLoggedin">
       Hi, {{ loggedUserData.contactNo }}
-      <button
-        class="btn btn-outline-success me-2"
-        type="button"
-        (click)="onLogOff()"
-      >
+      <button class="btn btn-outline-success me-2" type="button" (click)="onLogOff()">
         LogOff
       </button>
     </div>
@@ -40,13 +28,8 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-          (click)="closeModal()"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="closeModal()"></button>
       </div>
       <div class="modal-body">
         <!--input name field is not manadatory if u r not using form tag -->
@@ -54,25 +37,13 @@
           <h5 class="modal-title">Login</h5>
           <div class="mb-3">
             <label class="form-label">Contact no</label>
-            <input
-              type="text"
-              class="form-control"
-              [(ngModel)]="loginObj.ContactNo"
-            />
+            <input type="text" class="form-control" [(ngModel)]="loginObj.ContactNo" />
           </div>
           <div class="mb-3">
             <label class="form-label">password</label>
-            <input
-              type="text"
-              class="form-control"
-              [(ngModel)]="loginObj.Password"
-            />
+            <input type="text" class="form-control" [(ngModel)]="loginObj.Password" />
           </div>
-          <button
-            type="submit"
-            class="w-100 btn btn-primary"
-            (click)="onLogin()"
-          >
+          <button type="submit" class="w-100 btn btn-primary" (click)="onLogin()">
             Login
           </button>
           <div class="my-3">
@@ -85,35 +56,19 @@
           <h5 class="modal-title">Registration</h5>
           <div class="mb-3">
             <label class="form-label">name</label>
-            <input
-              type="text"
-              class="form-control"
-              [(ngModel)]="registerObj.Name"
-            />
+            <input type="text" class="form-control" [(ngModel)]="registerObj.Name" />
           </div>
           <div class="mb-3">
             <label class="form-label">email</label>
-            <input
-              type="text"
-              class="form-control"
-              [(ngModel)]="registerObj.Email"
-            />
+            <input type="text" class="form-control" [(ngModel)]="registerObj.Email" />
           </div>
           <div class="mb-3">
             <label class="form-label">password</label>
-            <input
-              type="text"
-              class="form-control"
-              [(ngModel)]="registerObj.Password"
-            />
+            <input type="text" class="form-control" [(ngModel)]="registerObj.Password" />
           </div>
           <div class="mb-3">
             <label class="form-label">contact no</label>
-            <input
-              type="text"
-              class="form-control"
-              [(ngModel)]="registerObj.ContactNo"
-            />
+            <input type="text" class="form-control" [(ngModel)]="registerObj.ContactNo" />
           </div>
           <div class="mb-3">
             <label class="form-label">Who are you</label>
@@ -123,11 +78,7 @@
               <option value="Customer">Customer</option>
             </select>
           </div>
-          <button
-            type="button"
-            class="w-100 btn btn-primary"
-            (click)="onRegister()"
-          >
+          <button type="button" class="w-100 btn btn-primary" (click)="onRegister()">
             Register
           </button>
           <div class="my-3">

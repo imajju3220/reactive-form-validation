@@ -39,15 +39,86 @@
         <p><strong>Event Name:</strong> {{ event.eventName }}</p>
       </div>
       <div class="col-2">
-        <p>{{ event.startDate | date : "dd-mm-yy" }}</p>
-        <p>{{ event.location }}</p>
+        <p><strong>Start Date</strong> {{ event.startDate | date : "dd-mm-yy" }}</p>
+        <p><strong>Location</strong> {{ event.location }}</p>
       </div>
       <div class="col-2">
-        <p>Rs. {{ event.price }}</p>
+        <p><strong>Rs.</strong> {{ event.price }}</p>
       </div>
       <div class="col-1">
-        <button type="button" class="btn btn-primary me-2">Book Now</button>
+        <button type="button" class="btn btn-primary me-2" (click)="bookNow(event)">Book Now</button>
       </div>
     </div>
   </div>
 </section>
+
+<div class="modal" tabindex="-1" id="bookingModal">
+  <div class="modal-dialog" style="width: 820px; max-width: none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <!--input name field is not manadatory if u r not using form tag -->
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-2">
+              <label class="form-label">Name</label>
+              <input type="text" class="form-control" [(ngModel)]="eventMembers.Name">
+            </div>
+            <div class="col-2">
+              <label class="form-label">Age</label>
+              <input type="text" class="form-control" [(ngModel)]="eventMembers.Age">
+            </div>
+            <div class="col-2">
+              <label class="form-label">ID Card</label>
+              <select name="" class="form-select" [(ngModel)]="eventMembers.IdentityCard">
+                <option value="" selected>-select-</option>
+                <option value="adharcard">adharcard</option>
+                <option value="pancard">pancard</option>
+              </select>
+            </div>
+            <div class="col-2">
+              <label class="form-label">ID No.</label>
+              <input type="text" class="form-control" [(ngModel)]="eventMembers.CardNo">
+            </div>
+            <div class="col-2">
+              <label class="form-label">Contact</label>
+              <input type="text" class="form-control" [(ngModel)]="eventMembers.ContactNo">
+            </div>
+            <div class="col-2">
+              <label class="form-label">&nbsp;</label> <br />
+              <button class="btn btn-primary" (click)="addMember()">add</button>
+            </div>
+          </div>
+          <div class="row" *ngFor="let members of bookingObj.EventBookingMembers">
+            <div class="col-2">
+              <label class="form-label">{{members.Name}}</label>
+            </div>
+            <div class="col-2">
+              <label class="form-label">{{members.Age}}</label>
+            </div>
+            <div class="col-2">
+              <label class="form-label">{{members.IdentityCard}}</label>
+            </div>
+            <div class="col-2">
+              <label class="form-label">{{members.CardNo}}</label>
+            </div>
+            <div class="col-2">
+              <label class="form-label">{{members.ContactNo}}</label>
+            </div>
+            <div class="col-2">
+              <label class="form-label">&nbsp;</label>
+            </div>
+          </div>
+          <div class="row mt-2">
+            <div class="col-12 d-flex justify-content-center">
+              <button class="btn btn-success" (click)="makeBooking()">make booking</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
