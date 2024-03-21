@@ -52,7 +52,7 @@
           </div>
         </ng-container>
         <!--input name field is not manadatory if u r not using form tag -->
-        <ng-container *ngIf="!isLoginView">
+        <!-- <ng-container *ngIf="!isLoginView">
           <h5 class="modal-title">Registration</h5>
           <div class="mb-3">
             <label class="form-label">name</label>
@@ -85,6 +85,83 @@
             Login if already registered?
             <a href="#" (click)="isLoginView = true"> login</a>
           </div>
+        </ng-container> -->
+
+        <ng-container *ngIf="!isLoginView">
+          <h5 class="modal-title">Registration</h5>
+          <form [formGroup]="registrationForm" (ngSubmit)="onRegister()">
+            <div class="mb-3">
+              <label class="form-label">name</label>
+              <!-- <input type="text" class="form-control" [(ngModel)]="registerObj.Name" /> -->
+              <input type="text" class="form-control" name="Name" formControlName="Name" />
+              <div *ngIf="registrationForm.get('Name')?.invalid && registrationForm.get('Name')?.touched">
+                <div *ngIf="registrationForm.get('Name')?.errors?.['required']">Name is required.</div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">email</label>
+              <!-- <input type="text" class="form-control" [(ngModel)]="registerObj.Email" /> -->
+              <input type="email" class="form-control" name="Email" formControlName="Email" />
+              <div *ngIf="registrationForm.get('Email')?.invalid && registrationForm.get('Email')?.touched">
+                <div *ngIf="registrationForm.get('Email')?.errors?.['required']">email is required.</div>
+                <div *ngIf="registrationForm.get('Email')?.errors?.['email']">email is invalid.</div>
+
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">password</label>
+              <!-- <input type="text" class="form-control" [(ngModel)]="registerObj.Password" /> -->
+              <input type="text" class="form-control" name="Password" formControlName="Password" />
+              <div *ngIf="registrationForm.get('Password')?.invalid && registrationForm.get('Password')?.touched">
+                <div *ngIf="registrationForm.get('Password')?.errors?.['required']">Password is required.</div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">confirm password</label>
+              <!-- <input type="text" class="form-control" [(ngModel)]="registerObj.Password" /> -->
+              <input type="text" class="form-control" name="ConfirmPassword" formControlName="ConfirmPassword" />
+              <div
+                *ngIf="registrationForm.get('ConfirmPassword')?.invalid && registrationForm.get('ConfirmPassword')?.touched">
+                <div *ngIf="registrationForm.get('ConfirmPassword')?.errors?.['required']">ConfirmPassword is required.
+
+                </div>
+
+                <div *ngIf="registrationForm.get('ConfirmPassword')?.errors?.['passwordMismatch']">
+                  Confirm Password does not match
+                </div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">contact no</label>
+              <input type="text" class="form-control" name="ContactNo" formControlName="ContactNo" />
+              <div *ngIf="registrationForm.get('ContactNo')?.invalid && registrationForm.get('ContactNo')?.touched">
+                <div *ngIf="registrationForm.get('ContactNo')?.errors?.['minlength']">10 character is required.</div>
+
+                <div *ngIf="registrationForm.get('ContactNo')?.errors?.['required']">ContactNo is required.</div>
+              </div>
+
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Who are you</label>
+              <select class="form-select" formControlName="Role">
+                <option value="Event Planner">Event Planner</option>
+                <option value="Customer">Customer</option>
+              </select>
+
+              <div *ngIf="registrationForm.get('Role')?.invalid && registrationForm.get('Role')?.touched">
+                <div *ngIf="registrationForm.get('Role')?.errors?.['required']">Role is required.</div>
+              </div>
+            </div>
+            <button type="submit" class="w-100 btn btn-primary">
+              Register
+            </button>
+            <div class="my-3">
+              Login if already registered?
+              <a href="#" (click)="isLoginView = true"> login</a>
+            </div>
+          </form>
         </ng-container>
       </div>
     </div>

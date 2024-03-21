@@ -37,7 +37,7 @@ export class NewEventComponent {
   onCreateEvent() {
     this.http
       .post(
-        'https://freeapi.miniprojectideas.com/api/EventBooking/CreateEvent',
+        'https://freeapi.gerasim.in/api/EventBooking/CreateEvent',
         this.eventObj
       )
       .subscribe((res: any) => {

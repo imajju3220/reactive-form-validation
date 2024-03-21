@@ -54,12 +54,13 @@ export class HomeComponent implements OnInit {
   }
 
   loadAllEvent() {
-    this.http.get('https://freeapi.miniprojectideas.com/api/EventBooking/GetAllEvents').subscribe((res: any) => {
+    this.http.get('https://freeapi.gerasim.in/api/EventBooking/GetAllEvents').subscribe((res: any) => {
       this.events = res.data;
     });
   }
 
   bookNow(event: any) {
+    debugger
     this.bookingObj.EventId = event.eventId;
     const model = document.getElementById('bookingModal');
     if (model != null) {
@@ -75,9 +76,8 @@ export class HomeComponent implements OnInit {
   }
 
   makeBooking() {
-    debugger
     this.bookingObj.NoOfTickets = this.bookingObj.EventBookingMembers.length;
-    this.http.post('https://freeapi.miniprojectideas.com/api/EventBooking/BookEvent', this.bookingObj).subscribe((res: any) => {
+    this.http.post('https://freeapi.gerasim.in/api/EventBooking/BookEvent', this.bookingObj).subscribe((res: any) => {
       if (res.result) {
         alert('booking success');
         this.closeModal();

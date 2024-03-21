@@ -20,8 +20,8 @@ export class EventListComponent {
   loadEvent() {
     this.http
       .get(
-        'https://freeapi.miniprojectideas.com/api/EventBooking/GetEventsByOrganizer?organizerId=' +
-          this.loggedUserData.userId
+        'https://freeapi.gerasim.in/api/EventBooking/GetEventsByOrganizer?organizerId=' +
+        this.loggedUserData.userId
       )
       .subscribe((res: any) => {
         this.eventList = res.data;
