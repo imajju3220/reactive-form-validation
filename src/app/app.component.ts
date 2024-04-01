@@ -14,7 +14,9 @@ export class AppComponent implements OnInit {
 
   registrationForm: FormGroup;
   isLoginView: boolean = true;
+  loginForm: FormGroup;
 
+  //this object is not required in reactive form
   // registerObj: any = {
   //   UserId: 0,
   //   Name: '',
@@ -24,10 +26,11 @@ export class AppComponent implements OnInit {
   //   Role: '',
   // };
 
-  loginObj: any = {
-    Password: '',
-    ContactNo: '',
-  };
+  //this object is not required in reactive form
+  // loginObj: any = {
+  //   Password: '',
+  //   ContactNo: '',
+  // };
 
   isUserLoggedin: boolean = false;
   loggedUserData: any;
@@ -41,8 +44,12 @@ export class AppComponent implements OnInit {
       ContactNo: new FormControl('', [Validators.required, Validators.minLength(10)]),
       Role: new FormControl('', [Validators.required]),
     }
-
     );
+
+    this.loginForm = this.fb.group({
+      Password: new FormControl('', [Validators.required]),
+      ContactNo: new FormControl('', [Validators.required]),
+    })
 
     const localData = localStorage.getItem('eventUser');
     if (localData != null) {
@@ -55,18 +62,20 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-
   }
 
-  confirmPasswordValidator(control: FormControl): { [s: string]: boolean } {
+  confirmPasswordValidator(control: FormControl): { [s: string]: any } | null {
+
     if (this.registrationForm && control.value !== this.registrationForm.get('Password')?.value) {
       return { 'passwordMismatch': true };
     }
-    return { 'passwordMismatch': false };
+    else {
+      return null;
+    }
   }
 
   openLogin() {
+    this.loginForm.reset();
     const modal = document.getElementById('myModal');
     if (modal != null) {
       modal.style.display = 'block';
@@ -89,26 +98,22 @@ export class AppComponent implements OnInit {
     }
   }
 
-  passwordMatchCase() {
-    var cc = this.registrationForm.get("Password")?.value
-    var dd = this.registrationForm.get("ConfirmPassword")?.value
-
-    if (cc == dd) {
-      alert('both password match');
-    } else {
-      alert('did not match');
-      return
-    }
+  // Function to mark all form controls as touched
+  private markFormGroupTouched(formGroup: FormGroup) {
+    Object.values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+      if (control instanceof FormGroup) {
+        this.markFormGroupTouched(control);
+      }
+    });
   }
 
-
   onRegister() {
-    this.passwordMatchCase()
+
     if (this.registrationForm.invalid) {
       return;
     }
 
-    console.log(JSON.stringify(this.registrationForm.value, null, 2));
     this.http
       .post('https://freeapi.gerasim.in/api/EventBooking/CreateUser', this.registrationForm.value).subscribe((res: any) => {
         if (res.result) {
@@ -121,7 +126,6 @@ export class AppComponent implements OnInit {
   }
 
 
-
   onLogOff() {
     localStorage.removeItem('eventUser');
     this.isUserLoggedin = false;
@@ -129,21 +133,26 @@ export class AppComponent implements OnInit {
   }
 
   onLogin() {
-    this.http
-      .post(
-        'https://freeapi.gerasim.in/api/EventBooking/Login',
-        this.loginObj
-      )
-      .subscribe((res: any) => {
-        if (res.result) {
-          alert('login success');
-          localStorage.setItem('eventUser', JSON.stringify(res.data));
-          this.isUserLoggedin = true;
-          this.loggedUserData = res.data;
-          this.closeModal();
-        } else {
-          alert('res.message');
-        }
-      });
+
+    this.markFormGroupTouched(this.loginForm);
+    if (this.loginForm.valid) {
+
+
+      this.http
+        .post(
+          'https://freeapi.gerasim.in/api/EventBooking/Login', this.loginForm.value
+        )
+        .subscribe((res: any) => {
+          if (res.result) {
+            alert('login success');
+            localStorage.setItem('eventUser', JSON.stringify(res.data));
+            this.isUserLoggedin = true;
+            this.loggedUserData = res.data;
+            this.closeModal();
+          } else {
+            alert('res.message');
+          }
+        });
+    }
   }
 }

@@ -16,7 +16,7 @@
       </button>
     </div>
     <div *ngIf="isUserLoggedin">
-      Hi, {{ loggedUserData.contactNo }}
+      Hi, {{ loggedUserData.name }}
       <button class="btn btn-outline-success me-2" type="button" (click)="onLogOff()">
         LogOff
       </button>
@@ -35,64 +35,37 @@
         <!--input name field is not manadatory if u r not using form tag -->
         <ng-container *ngIf="isLoginView">
           <h5 class="modal-title">Login</h5>
-          <div class="mb-3">
-            <label class="form-label">Contact no</label>
-            <input type="text" class="form-control" [(ngModel)]="loginObj.ContactNo" />
-          </div>
-          <div class="mb-3">
-            <label class="form-label">password</label>
-            <input type="text" class="form-control" [(ngModel)]="loginObj.Password" />
-          </div>
-          <button type="submit" class="w-100 btn btn-primary" (click)="onLogin()">
-            Login
-          </button>
+          <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+            <div class="mb-3">
+              <label class="form-label">Contact no</label>
+              <!-- <input type="text" class="form-control" [(ngModel)]="loginObj.ContactNo" /> -->
+              <input type="text" class="form-control" name="ContactNo" formControlName="ContactNo" />
+              <div *ngIf="loginForm.get('ContactNo')?.invalid && loginForm.get('ContactNo')?.touched">
+                <div *ngIf="loginForm.get('ContactNo')?.errors?.['required']">Contact No is required.</div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">password</label>
+              <input type="text" class="form-control" name="Password" formControlName="Password" />
+              <div *ngIf="loginForm.get('Password')?.invalid && loginForm.get('Password')?.touched">
+                <div *ngIf="loginForm.get('Password')?.errors?.['required']">Password is required.</div>
+              </div>
+            </div>
+            <button type="submit" class="w-100 btn btn-primary">
+              Login
+            </button>
+          </form>
           <div class="my-3">
             don't have an account ?
             <a href="#" (click)="isLoginView = false"> sign up here</a>
           </div>
         </ng-container>
-        <!--input name field is not manadatory if u r not using form tag -->
-        <!-- <ng-container *ngIf="!isLoginView">
-          <h5 class="modal-title">Registration</h5>
-          <div class="mb-3">
-            <label class="form-label">name</label>
-            <input type="text" class="form-control" [(ngModel)]="registerObj.Name" />
-          </div>
-          <div class="mb-3">
-            <label class="form-label">email</label>
-            <input type="text" class="form-control" [(ngModel)]="registerObj.Email" />
-          </div>
-          <div class="mb-3">
-            <label class="form-label">password</label>
-            <input type="text" class="form-control" [(ngModel)]="registerObj.Password" />
-          </div>
-          <div class="mb-3">
-            <label class="form-label">contact no</label>
-            <input type="text" class="form-control" [(ngModel)]="registerObj.ContactNo" />
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Who are you</label>
-            <select class="form-select" [(ngModel)]="registerObj.Role">
-              <option>select your role</option>
-              <option value="Event Planner">Event Planner</option>
-              <option value="Customer">Customer</option>
-            </select>
-          </div>
-          <button type="button" class="w-100 btn btn-primary" (click)="onRegister()">
-            Register
-          </button>
-          <div class="my-3">
-            Login if already registered?
-            <a href="#" (click)="isLoginView = true"> login</a>
-          </div>
-        </ng-container> -->
 
         <ng-container *ngIf="!isLoginView">
           <h5 class="modal-title">Registration</h5>
           <form [formGroup]="registrationForm" (ngSubmit)="onRegister()">
             <div class="mb-3">
               <label class="form-label">name</label>
-              <!-- <input type="text" class="form-control" [(ngModel)]="registerObj.Name" /> -->
               <input type="text" class="form-control" name="Name" formControlName="Name" />
               <div *ngIf="registrationForm.get('Name')?.invalid && registrationForm.get('Name')?.touched">
                 <div *ngIf="registrationForm.get('Name')?.errors?.['required']">Name is required.</div>
@@ -101,7 +74,6 @@
 
             <div class="mb-3">
               <label class="form-label">email</label>
-              <!-- <input type="text" class="form-control" [(ngModel)]="registerObj.Email" /> -->
               <input type="email" class="form-control" name="Email" formControlName="Email" />
               <div *ngIf="registrationForm.get('Email')?.invalid && registrationForm.get('Email')?.touched">
                 <div *ngIf="registrationForm.get('Email')?.errors?.['required']">email is required.</div>
@@ -112,7 +84,6 @@
 
             <div class="mb-3">
               <label class="form-label">password</label>
-              <!-- <input type="text" class="form-control" [(ngModel)]="registerObj.Password" /> -->
               <input type="text" class="form-control" name="Password" formControlName="Password" />
               <div *ngIf="registrationForm.get('Password')?.invalid && registrationForm.get('Password')?.touched">
                 <div *ngIf="registrationForm.get('Password')?.errors?.['required']">Password is required.</div>
@@ -120,7 +91,6 @@
             </div>
             <div class="mb-3">
               <label class="form-label">confirm password</label>
-              <!-- <input type="text" class="form-control" [(ngModel)]="registerObj.Password" /> -->
               <input type="text" class="form-control" name="ConfirmPassword" formControlName="ConfirmPassword" />
               <div
                 *ngIf="registrationForm.get('ConfirmPassword')?.invalid && registrationForm.get('ConfirmPassword')?.touched">

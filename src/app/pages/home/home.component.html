@@ -28,8 +28,8 @@
   </ul>
 </section>
 
-<section class="my-5 bg-light" *ngFor="let event of events">
-  <div class="container-fluid">
+<section style="max-height: 400px; overflow-y: auto;">
+  <div class="container-fluid my-5 bg-light" *ngFor="let event of shownEvents">
     <div class="w-100 p-3 d-flex align-items-center justify-content-between">
       <div class="col-3">
         <img [src]="event.imageUrl" alt="" style="width: 150px" />
@@ -51,6 +51,9 @@
     </div>
   </div>
 </section>
+<div class="p-3 text-center">
+  <button type="button" class="btn btn-success" (click)="showMore()">Show More</button>
+</div>
 
 <div class="modal" tabindex="-1" id="bookingModal">
   <div class="modal-dialog" style="width: 820px; max-width: none;">

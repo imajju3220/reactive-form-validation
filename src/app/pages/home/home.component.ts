@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
   events: any[] = [];
+  shownEvents: any[] = [];
+  visibleEventCount: number = 0;
   bookingObj: any = {
     "BookingId": 0,
     "UserId": 0,
@@ -33,6 +35,14 @@ export class HomeComponent implements OnInit {
       const user = JSON.parse(localData);
       this.bookingObj.UserId = user.userid;
     }
+    this.shownEvents = this.events.slice(0, this.visibleEventCount);
+  }
+
+  showMore() {
+    // Increase the visible event count by 2
+    this.visibleEventCount += 2;
+    // Update the shownEvents array with the new set of events
+    this.shownEvents = this.events.slice(0, this.visibleEventCount);
   }
 
   ngOnInit(): void {
@@ -56,6 +66,7 @@ export class HomeComponent implements OnInit {
   loadAllEvent() {
     this.http.get('https://freeapi.gerasim.in/api/EventBooking/GetAllEvents').subscribe((res: any) => {
       this.events = res.data;
+      this.showMore();
     });
   }
 
