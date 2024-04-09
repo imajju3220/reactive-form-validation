@@ -133,11 +133,10 @@ export class AppComponent implements OnInit {
   }
 
   onLogin() {
-
+    //this method shows an erorr when you directly click on login button without touch contact and password
     this.markFormGroupTouched(this.loginForm);
+
     if (this.loginForm.valid) {
-
-
       this.http
         .post(
           'https://freeapi.gerasim.in/api/EventBooking/Login', this.loginForm.value

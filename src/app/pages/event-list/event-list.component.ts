@@ -9,6 +9,7 @@ import { Component } from '@angular/core';
 export class EventListComponent {
   loggedUserData: any;
   eventList: any[] = [];
+  searchText: any;
 
   constructor(private http: HttpClient) {
     const localData = localStorage.getItem('eventUser');

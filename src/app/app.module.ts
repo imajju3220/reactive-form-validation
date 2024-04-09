@@ -11,6 +11,7 @@ import { EventBookingsComponent } from './pages/event-bookings/event-bookings.co
 import { EventListComponent } from './pages/event-list/event-list.component';
 import { MyBookingsComponent } from './pages/my-bookings/my-bookings.component';
 import { NewEventComponent } from './pages/new-event/new-event.component';
+import { FilterPipe } from './filter.pipe';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { NewEventComponent } from './pages/new-event/new-event.component';
     EventListComponent,
     MyBookingsComponent,
     NewEventComponent,
+    FilterPipe,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule, ReactiveFormsModule],
   providers: [],

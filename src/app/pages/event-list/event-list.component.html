@@ -1,8 +1,17 @@
-<div class="row">
-  <h4>Event List</h4>
+<div class="row mx-0 mb-5">
+  <div class="d-flex align-items-center">
+    <h4 class="mb-0 me-2">Event List</h4>
+    <p class="m-0 text-black-50">To view login with 5678901234/nivi <span><br>first go to
+        GetAllEvents >
+        find userId, Then go to GetUSerById > u will get credentials </span></p>
+  </div>
 </div>
-<div class="row">
-  <div class="col-12 mb-3" *ngFor="let event of eventList">
+<div class="row mx-0 mb-3">
+  <div class="col-6"><input type="search" placeholder="search by event name" class="form-control"
+      [(ngModel)]="searchText"></div>
+</div>
+<div class="row mx-0">
+  <div class="col-12 mb-3" *ngFor="let event of eventList | filter:searchText">
     <div class="card">
       <div class="card-body">
         <div class="row">
@@ -14,12 +23,7 @@
             <a href="#" class="btn btn-primary">Book Now</a>
           </div>
           <div class="col-4">
-            <img
-              class="card-img-top"
-              [src]="event.imageUrl"
-              alt="Card image"
-              max-height="100px"
-            />
+            <img class="card-img-top" [src]="event.imageUrl" alt="Card image" max-height="100px" />
           </div>
         </div>
       </div>
