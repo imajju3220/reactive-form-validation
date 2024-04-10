@@ -8,8 +8,14 @@ export class FilterPipe implements PipeTransform {
   transform(value: any, ...args: any[]): any {
 
     debugger;
-    if (!value) return null;
-    if (!args || !args.length) return value;
+    //this will run if value is not there
+    //if (!value) return null;
+    if (!value) {
+      return null
+    }
+    if (!args || !args.length) {
+      return value
+    }
 
     const searchString = args.toString().toLowerCase();
 
