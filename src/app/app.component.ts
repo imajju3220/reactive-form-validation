@@ -109,20 +109,18 @@ export class AppComponent implements OnInit {
   }
 
   onRegister() {
-
-    if (this.registrationForm.invalid) {
-      return;
+    this.markFormGroupTouched(this.registrationForm);
+    if (this.registrationForm.valid) {
+      this.http
+        .post('https://freeapi.gerasim.in/api/EventBooking/CreateUser', this.registrationForm.value).subscribe((res: any) => {
+          if (res.result) {
+            alert('registration success');
+            this.closeModal();
+          } else {
+            alert(res.message);
+          }
+        });
     }
-
-    this.http
-      .post('https://freeapi.gerasim.in/api/EventBooking/CreateUser', this.registrationForm.value).subscribe((res: any) => {
-        if (res.result) {
-          alert('registration success');
-          this.closeModal();
-        } else {
-          alert(res.message);
-        }
-      });
   }
 
 
